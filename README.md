@@ -1,106 +1,261 @@
-## 不要fork！！请建立私库!!!!请建立私库!!!!请建立私库!!!!  
-## 已经创建仓库的请点击仓库右上角Setting，拉到页面最下方，点击Change visibility，选择Make private，填入黑体仓库名称进行确认!
+# crypto-js [![Build Status](https://travis-ci.org/brix/crypto-js.svg?branch=develop)](https://travis-ci.org/brix/crypto-js)
 
-## 为防止账号再次遭到封禁失联,有条（科学）件（上网）的可以加入TG交流群
-## TG交流群：https://t.me/jd_zero205
-## TG通知频道：https://t.me/jd_zero205_tz
+JavaScript library of crypto standards.
 
-## 为防止仓库再次被封，本仓库仅保留腾讯云函数、elecV2P两种方式运行
+## Node.js (Install)
 
-## 不要fork！！请先自行创建自己的仓库
-* 1.创建新仓库[点击创建自己的仓库](https://github.com/new)
-* 2.点击`Import a repository`，在`Your old repository’s clone URL`处填入https://github.com/zero205/JD_tencent_scf
-* 3.然后在`Repository name`处填写仓库名，选择`Private`
-* 4.最后点击最下方的`Begin import`即可
+Requirements:
 
-## 自动同步本仓库脚本教程：[点此查看](https://github.com/zero205/JD_tencent_scf/blob/main/backUp/reposync.md)  
+- Node.js
+- npm (Node.js package manager)
 
-# 使用教程（觉得有用的可以点个star :blush:）  
+```bash
+npm install crypto-js
+```
 
-* > 【青龙】拉取仓库命令：`ql repo https://github.com/zero205/JD_tencent_scf.git "jd_|jx_"  "backUp" "^(jd|JD|JS)[^_]|USER|sendNotify|ZooFaker_Necklace"`  
+### Usage
 
-* > 腾讯云函数部署【推荐】[点此查看教程](./backUp/tencentscf.md)
+ES6 import for typical API call signing use case:
 
-* > [elecV2P](https://github.com/elecV2/elecV2P) 部署【备用】
-    * 安装教程：[点此查看](https://github.com/elecV2/elecV2P-dei/blob/master/docs/01-overview.md)  
-    * elecV2P京东CK、通知填写格式等相关补充说明：[点此查看](./backUp/elecV2P.md)  
+```javascript
+import sha256 from 'crypto-js/sha256';
+import hmacSHA512 from 'crypto-js/hmac-sha512';
+import Base64 from 'crypto-js/enc-base64';
 
-- 获取京东cookie教程可参考：
-  
-  + [浏览器获取京东cookie教程](./backUp/GetJdCookie.md)
-    
-  + [插件获取京东cookie教程](./backUp/GetJdCookie2.md)
-  
-## AC运行常见问题  
-* 此处借用[RayWangQvQ](https://github.com/RayWangQvQ)大佬的教程  
-* [点击查看常见问题](https://github.com/RayWangQvQ/BiliBiliTool.Docs/blob/main/questions.md)  
+const message, nonce, path, privateKey; // ...
+const hashDigest = sha256(nonce + message);
+const hmacDigest = Base64.stringify(hmacSHA512(path + hashDigest, privateKey));
+```
 
-## 特别声明: 
+Modular include:
 
-* 本仓库发布的Script项目中涉及的任何解锁和解密分析脚本，仅用于测试和学习研究，禁止用于商业用途，不能保证其合法性，准确性，完整性和有效性，请根据情况自行判断.
+```javascript
+var AES = require("crypto-js/aes");
+var SHA256 = require("crypto-js/sha256");
+...
+console.log(SHA256("Message"));
+```
 
-* 本项目内所有资源文件，禁止任何公众号、自媒体进行任何形式的转载、发布。
+Including all libraries, for access to extra methods:
 
-* lxk0301对任何脚本问题概不负责，包括但不限于由任何脚本错误导致的任何损失或损害.
+```javascript
+var CryptoJS = require("crypto-js");
+console.log(CryptoJS.HmacSHA1("Message", "Key"));
+```
 
-* 间接使用脚本的任何用户，包括但不限于建立VPS或在某些行为违反国家/地区法律或相关法规的情况下进行传播, lxk0301 对于由此引起的任何隐私泄漏或其他后果概不负责.
+## Client (browser)
 
-* 请勿将Script项目的任何内容用于商业或非法目的，否则后果自负.
+Requirements:
 
-* 如果任何单位或个人认为该项目的脚本可能涉嫌侵犯其权利，则应及时通知并提供身份证明，所有权证明，我们将在收到认证文件后删除相关脚本.
+- Node.js
+- Bower (package manager for frontend)
 
-* 任何以任何方式查看此项目的人或直接或间接使用该Script项目的任何脚本的使用者都应仔细阅读此声明。lxk0301 保留随时更改或补充此免责声明的权利。一旦使用并复制了任何相关脚本或Script项目的规则，则视为您已接受此免责声明.
+```bash
+bower install crypto-js
+```
 
- **您必须在下载后的24小时内从计算机或手机中完全删除以上内容.**  </br>
-> ***您使用或者复制了本仓库且本人制作的任何脚本，则视为`已接受`此声明，请仔细阅读***   
+### Usage
+
+Modular include:
+
+```javascript
+require.config({
+    packages: [
+        {
+            name: 'crypto-js',
+            location: 'path-to/bower_components/crypto-js',
+            main: 'index'
+        }
+    ]
+});
+
+require(["crypto-js/aes", "crypto-js/sha256"], function (AES, SHA256) {
+    console.log(SHA256("Message"));
+});
+```
+
+Including all libraries, for access to extra methods:
+
+```javascript
+// Above-mentioned will work or use this simple form
+require.config({
+    paths: {
+        'crypto-js': 'path-to/bower_components/crypto-js/crypto-js'
+    }
+});
+
+require(["crypto-js"], function (CryptoJS) {
+    console.log(CryptoJS.HmacSHA1("Message", "Key"));
+});
+```
+
+### Usage without RequireJS
+
+```html
+<script type="text/javascript" src="path-to/bower_components/crypto-js/crypto-js.js"></script>
+<script type="text/javascript">
+    var encrypted = CryptoJS.AES(...);
+    var encrypted = CryptoJS.SHA256(...);
+</script>
+```
+
+## API
+
+See: https://cryptojs.gitbook.io/docs/
+
+### AES Encryption
+
+#### Plain text encryption
+
+```javascript
+var CryptoJS = require("crypto-js");
+
+// Encrypt
+var ciphertext = CryptoJS.AES.encrypt('my message', 'secret key 123').toString();
+
+// Decrypt
+var bytes  = CryptoJS.AES.decrypt(ciphertext, 'secret key 123');
+var originalText = bytes.toString(CryptoJS.enc.Utf8);
+
+console.log(originalText); // 'my message'
+```
+
+#### Object encryption
+
+```javascript
+var CryptoJS = require("crypto-js");
+
+var data = [{id: 1}, {id: 2}]
+
+// Encrypt
+var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), 'secret key 123').toString();
+
+// Decrypt
+var bytes  = CryptoJS.AES.decrypt(ciphertext, 'secret key 123');
+var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+
+console.log(decryptedData); // [{id: 1}, {id: 2}]
+```
+
+### List of modules
 
 
-## 邀请码互助
+- ```crypto-js/core```
+- ```crypto-js/x64-core```
+- ```crypto-js/lib-typedarrays```
 
-- [获取各类活动互助码脚本 jd_get_share_code.js](https://raw.githubusercontent.com/zero205/JD_tencent_scf/main/jd_get_share_code.js)
+---
 
-- [邀请码使用规范](githubAction.md#互助码类环境变量)(仅限云端)
+- ```crypto-js/md5```
+- ```crypto-js/sha1```
+- ```crypto-js/sha256```
+- ```crypto-js/sha224```
+- ```crypto-js/sha512```
+- ```crypto-js/sha384```
+- ```crypto-js/sha3```
+- ```crypto-js/ripemd160```
 
-## 食用方法
+---
 
-### ~~1. Docker~~
+- ```crypto-js/hmac-md5```
+- ```crypto-js/hmac-sha1```
+- ```crypto-js/hmac-sha256```
+- ```crypto-js/hmac-sha224```
+- ```crypto-js/hmac-sha512```
+- ```crypto-js/hmac-sha384```
+- ```crypto-js/hmac-sha3```
+- ```crypto-js/hmac-ripemd160```
 
-- ~~[部署方法](./docker)~~
+---
 
-- [环境变量集合](./githubAction.md)
- 
-- 获取京东cookie教程可参考：
-  
-  + [浏览器获取京东cookie教程](./backUp/GetJdCookie.md)
-    
-  + [插件获取京东cookie教程](./backUp/GetJdCookie2.md)
-    
-  + 京东APP扫码获取cookie(此种方式获取的cookie有效期为30天)(执行`node getJDCookie.js`即可)
+- ```crypto-js/pbkdf2```
+
+---
+
+- ```crypto-js/aes```
+- ```crypto-js/tripledes```
+- ```crypto-js/rc4```
+- ```crypto-js/rabbit```
+- ```crypto-js/rabbit-legacy```
+- ```crypto-js/evpkdf```
+
+---
+
+- ```crypto-js/format-openssl```
+- ```crypto-js/format-hex```
+
+---
+
+- ```crypto-js/enc-latin1```
+- ```crypto-js/enc-utf8```
+- ```crypto-js/enc-hex```
+- ```crypto-js/enc-utf16```
+- ```crypto-js/enc-base64```
+
+---
+
+- ```crypto-js/mode-cfb```
+- ```crypto-js/mode-ctr```
+- ```crypto-js/mode-ctr-gladman```
+- ```crypto-js/mode-ofb```
+- ```crypto-js/mode-ecb```
+
+---
+
+- ```crypto-js/pad-pkcs7```
+- ```crypto-js/pad-ansix923```
+- ```crypto-js/pad-iso10126```
+- ```crypto-js/pad-iso97971```
+- ```crypto-js/pad-zeropadding```
+- ```crypto-js/pad-nopadding```
 
 
-## 特别感谢(排名不分先后)：
+## Release notes
+
+### 4.1.1
+
+Fix module order in bundled release.
+
+Include the browser field in the released package.json.
+
+### 4.1.0
+
+Added url safe variant of base64 encoding. [357](https://github.com/brix/crypto-js/pull/357)
+
+Avoid webpack to add crypto-browser package. [364](https://github.com/brix/crypto-js/pull/364)
+
+### 4.0.0
+
+This is an update including breaking changes for some environments.
+
+In this version `Math.random()` has been replaced by the random methods of the native crypto module.
+
+For this reason CryptoJS might not run in some JavaScript environments without native crypto module. Such as IE 10 or before or React Native.
+
+### 3.3.0
+
+Rollback, `3.3.0` is the same as `3.1.9-1`.
+
+The move of using native secure crypto module will be shifted to a new `4.x.x` version. As it is a breaking change the impact is too big for a minor release.
+
+### 3.2.1
+
+The usage of the native crypto module has been fixed. The import and access of the native crypto module has been improved.
+
+### 3.2.0
+
+In this version `Math.random()` has been replaced by the random methods of the native crypto module.
+
+For this reason CryptoJS might does not run in some JavaScript environments without native crypto module. Such as IE 10 or before.
+
+If it's absolute required to run CryptoJS in such an environment, stay with `3.1.x` version. Encrypting and decrypting stays compatible. But keep in mind `3.1.x` versions still use `Math.random()` which is cryptographically not secure, as it's not random enough. 
+
+This version came along with `CRITICAL` `BUG`. 
+
+DO NOT USE THIS VERSION! Please, go for a newer version!
+
+### 3.1.x
+
+The `3.1.x` are based on the original CryptoJS, wrapped in CommonJS modules.
 
 
-* [@NobyDa](https://github.com/NobyDa)
-
-* [@chavyleung](https://github.com/chavyleung)
-
-* [@liuxiaoyucc](https://github.com/liuxiaoyucc)
-
-* [@Zero-S1](https://github.com/Zero-S1)
-
-* [@uniqueque](https://github.com/uniqueque)
-
-* [@nzw9314](https://github.com/nzw9314)
-
-* [@JDHelloWorld](https://github.com/JDHelloWorld)
-
-* [@smiek2221](https://github.com/smiek2221)
-
-* [@star261](https://github.com/star261)
-
-* [@Wenmoux](https://github.com/Wenmoux)
-
-* [@Tsukasa007](https://github.com/Tsukasa007)
-
-* [@Aaron](https://github.com/Aaron)

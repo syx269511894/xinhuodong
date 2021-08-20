@@ -26,7 +26,7 @@ inputs:
     - timer: #宠汪汪积分兑换奖品##
         parameters:
           name: 2cfdtx_xtg
-          cronExpression: "0 0 0,12,14-22/2 * * * *"
+          cronExpression: "0 0 0,8,16-22/3 * * * *"
           enable: true
           argument: jd_joy_reward&
     - timer: #京东月资产变动通知#京东资产变动通知#点点券红包####
@@ -41,42 +41,42 @@ inputs:
           cronExpression: "2 15,45 7,8-23/2 * * * *"
           enable: true
           argument: jd_cfd&jd_cfd_loop&&&&
-    - timer: #东东水果#jd宠汪汪#宠汪汪喂食#ts#取关主播#
+    - timer: #东东水果#宠汪汪喂食#ts#取关主播#
         parameters:
           name: 5joy_park
           cronExpression: "40,1 0-23/1 * * *"
           enable: true
-          argument: jd_fruit&jd_joy&jd_joy_feedPets&jd_IndustryLottery&TS_USER_AGENTS&jd_unsubscriLive
-    - timer: #京东到家鲜豆#京东到家果园任务#推金币#
+          argument: jd_fruit&jd_joy_feedPets&jd_IndustryLottery&TS_USER_AGENTS&jd_unsubscriLive
+    - timer: #京东到家果园任务#推金币#京东到家鲜豆#
         parameters:
           name: 6jd_morningSc
           cronExpression: "0 10,20,30,40,50 0-23/1 * * * *"
           enable: true
-          argument: jd_dj_bean&jd_dj_fruit&jd_tuijinbi&
-    - timer: #天天优惠大乐透#宠汪汪偷好友积分与狗粮#京喜工厂开团#
+          argument: jd_dj_fruit&jd_tuijinbi&jd_dj_bean&
+    - timer: #天天优惠大乐透#宠汪汪偷好友积分与狗粮#京喜工厂开团#jd宠汪汪#
         parameters:
           name: 7jd_mohe
           cronExpression: "1,1 0-23/1 * * *"
           enable: true
-          argument: jd_DrawEntrance&jd_joy_run&jd_dreamFactory_tuan&jddj_fruit_code
+          argument: jd_DrawEntrance&jd_joy_run&jd_dreamFactory_tuan&jddj_fruit_code&jd_joy
     - timer: #京东到家鲜豆#京东到家果园#京东到家果园水车收水滴#京东到家鲜豆庄园收水#京东到家鲜豆庄园脚本#
         parameters:
           name: 8jd_cfdqiqiu
           cronExpression: "1,30 0-23/1 * * *"
           enable: true
           argument: jddj_bean&jddj_fruit&jddj_fruit_collectWater&jddj_getPoints&jddj_plantBeans&
-    - timer: #财富岛红包#京喜签到#
+    - timer: #京喜签到#
         parameters:
           name: 9jd_lsj
           cronExpression: "0 14,44 9,8-23/1 * * * *"
           enable: true
-          argument: jx_cfdtx&jx_sign&RanDongXiaJi
-    - timer: #宠旺旺比赛###
+          argument: jx_sign&RanDongXiaJi
+    - timer: #宠旺旺比赛#财富岛红包###
         parameters:
           name: 10gua-opencard
           cronExpression: "0 13,43 9,8-23/1 * * * *"
           enable: true
-          argument: jd_joy_run&
+          argument: jd_joy_run&jx_cfdtx&
   environment: #  环境变量
     variables: #  环境变量对象
       AAA: BBB # 不要删除，用来格式化对齐追加的变量的
